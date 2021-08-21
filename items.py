@@ -24,6 +24,7 @@ files['/etc/proftpd/tls.conf'] = {
         'TLSRSACertificateFile': proftp_config.get('tls_certificate', '/etc/ssl/certs/proftpd.crt'),
         'TLSRSACertificateKeyFile': proftp_config.get('tls_privace_key', '/etc/ssl/private/proftpd.key'),
     },
+    'triggers': ['svc_systemd:proftpd.service:restart', ],
 }
 
 files['/etc/proftpd/proftpd.conf'] = {
@@ -36,6 +37,7 @@ files['/etc/proftpd/proftpd.conf'] = {
         'Port': proftp_config.get('port', 21),
         'PassivePorts': proftp_config.get('passive_ports', (49152, 49252)),
     },
+    'triggers': ['svc_systemd:proftpd.service:restart', ],
 }
 
 files['/etc/proftpd/modules.conf'] = {
@@ -45,13 +47,18 @@ files['/etc/proftpd/modules.conf'] = {
     'mode': '0644',
     'context': {
     },
+    'triggers': ['svc_systemd:proftpd.service:restart', ],
 }
 
 files['/etc/proftpd/sql.conf'] = {
     'owner': 'root',
     'group': 'root',
     'content_type': 'mako',
-    'mode': '0644',
+    'mode': '0600',
     'context': {
     },
+    'triggers': ['svc_systemd:proftpd.service:restart', ],
 }
+
+
+svc_systemd['proftpd.service'] = {'needs': ['pkg_apt:proftpd-basic', ], }
