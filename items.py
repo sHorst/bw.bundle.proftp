@@ -14,6 +14,7 @@ files['/etc/proftpd/welcome.msg'] = {
     'mode': '0644',
 }
 
+# TODO: generate the certificates with let's encrypt
 files['/etc/proftpd/tls.conf'] = {
     'owner': 'root',
     'group': 'root',
