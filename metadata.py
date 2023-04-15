@@ -11,7 +11,7 @@ if node.has_bundle("apt"):
 @metadata_reactor
 def add_ports_to_iptables(metadata):
     if not node.has_bundle('iptables'):
-        raise do_not_run_again
+        raise DoNotRunAgain
 
     rules = {}
 
